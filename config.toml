@@ -1,0 +1,10 @@
+[Video]
+resolution=[1280, 720]
+fps = 60
+windowed=true
+
+[Internal]
+defaultScene="main"
+virtualResolution=[1280,720]
+debug=true
+estimateMaxEntities=100
