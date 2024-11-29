@@ -1,1 +1,0 @@
-This is a recreation of Suika Game assets, in a similar style to the original game.
