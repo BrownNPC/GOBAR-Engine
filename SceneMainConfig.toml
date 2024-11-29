@@ -1,4 +1,0 @@
-[Textures]
-backdrop={filePath="assets/sprites/SceneMain/Backdrop.png", size=[1280,720], offset=[0,0], tag="Tbackdrop"}
-container={filePath="assets/sprites/SceneMain/Container.png", size=[1024,1024], offset=[640,360], tag="Tcontainer"}
-cherry={filePath="assets/sprites/SceneMain/Cherry.png", size=[32,32], offset=[10,0], tag="Tcherry"}
