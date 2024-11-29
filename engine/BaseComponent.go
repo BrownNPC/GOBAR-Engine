@@ -4,6 +4,3 @@ package engine
 type Component interface {
 	ID() int
 }
-
-type BaseComponent struct {
-}

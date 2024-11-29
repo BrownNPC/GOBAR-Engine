@@ -15,18 +15,14 @@ func newEntity(Id int, Tag string, components ...Component) *Entity {
 		Alive:      true,
 		ID:         Id,
 	}
-	e.setComponentIds(components...)
+	for _, c := range components {
+		e.AddComponent(c)
+	}
 	return e
 }
 
 func (e *Entity) Kill() {
 	e.Alive = false
-}
-
-func (e *Entity) setComponentIds(components ...Component) {
-	for i, c := range components {
-		e.Components[i] = c
-	}
 }
 
 func (e *Entity) AddComponent(c Component) {
