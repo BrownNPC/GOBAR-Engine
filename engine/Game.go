@@ -12,13 +12,13 @@ type Scene interface {
 	Render()
 	Init()
 	Unload()
-	IsLoaded() bool
+	isLoaded() bool
 	NextScene() string
 	//whether scene should be switched to the next scene
-	IsDone() bool
-	ReceiveMemoryPool(memoryPool *memoryPool)
-	InitBaseScene()
-	UnloadBaseScene()
+	isDone() bool
+
+	initBaseScene()
+	unloadBaseScene()
 }
 
 type Game struct {
@@ -34,18 +34,16 @@ type Game struct {
 	// the base scene has an entity manager, the game sends the memory pool reference to the base scene,
 	// the base scene gives the memory pool to the entity manager
 	// the entity manager then passes the memory pool reference to the entity when it is created
-	memoryPool *memoryPool
 
 	RenderScale int
 }
 
 // NewGame creates a new game with the default configuration (config.toml)
-func NewGame(sceneCFG []SceneConfig, gameCFG Config, memoryPool *memoryPool) Game {
+func NewGame(sceneCFG []SceneConfig, gameCFG Config) Game {
 	g := Game{conf: gameCFG}
 	g.currentScene = g.conf.DefaultScene
 	g.Scenes = make(map[string]Scene)
 	g.virtualWidth, g.virtualHeight = g.conf.VirtualResolution[0], g.conf.VirtualResolution[1]
-	g.memoryPool = memoryPool
 
 	// Register the main scene and the menu scene
 	for _, scene := range sceneCFG {
@@ -64,19 +62,18 @@ func (g *Game) _registerScene(name string, scene Scene) {
 // It makes sure that the previous scene is unloaded and the new one is loaded.
 // If the current scene is not done or the new scene is not loaded, it will log a fatal error.
 func (g *Game) _changeScene(name string) {
-	if g.Scenes[g.currentScene].IsLoaded() {
+	if g.Scenes[g.currentScene].isLoaded() {
 		// Unload the current scene
-		g.Scenes[g.currentScene].UnloadBaseScene()
 		g.Scenes[g.currentScene].Unload()
+		g.Scenes[g.currentScene].unloadBaseScene()
 		// Check that the current scene is unloaded and done
 	}
 
 	// Change to the new scene
 	g.currentScene = name
 	// Load the new scene
-	g.Scenes[g.currentScene].ReceiveMemoryPool(g.memoryPool)
 
-	g.Scenes[g.currentScene].InitBaseScene()
+	g.Scenes[g.currentScene].initBaseScene()
 	g.Scenes[g.currentScene].Init()
 }
 
@@ -117,11 +114,11 @@ func (g Game) Run() {
 	if g.Scenes[g.currentScene] == nil {
 		panic(fmt.Sprint("The scene ", g.currentScene, " is not registered"))
 	}
-	g.Scenes[g.currentScene].ReceiveMemoryPool(g.memoryPool)
-	g.Scenes[g.currentScene].InitBaseScene()
+
+	g.Scenes[g.currentScene].initBaseScene()
 	g.Scenes[g.currentScene].Init()
 	for !rl.WindowShouldClose() {
-		if g.Scenes[g.currentScene].IsDone() {
+		if g.Scenes[g.currentScene].isDone() {
 			g._changeScene(g.Scenes[g.currentScene].NextScene())
 		}
 		// Calculate the scale factor for the virtual resolution.

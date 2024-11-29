@@ -6,13 +6,15 @@ import (
 	"github.com/jakecoffman/cp"
 )
 
+const TransformComponentId = 1
+
 // transform component
-type CTransform struct {
+type Transform struct {
 	Position cp.Vector
 	Angle    float64
 	engine.BaseComponent
 }
 
-func (c CTransform) Default() engine.GenericComponent {
-	return CTransform{}
+func (c Transform) ID() int {
+	return TransformComponentId
 }

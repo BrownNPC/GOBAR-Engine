@@ -11,23 +11,25 @@ type BaseScene struct {
 	Loaded        bool
 	VirtualWidth  float32
 	VirtualHeight float32
-	EntityManager EntityManager
-	memoryPool    *memoryPool
+	EntityManager *EntityManager
 	done          bool
 }
 
-func (s *BaseScene) UnloadBaseScene() {
+func (s *BaseScene) unloadBaseScene() {
 	s.done = true
 	s.Loaded = false
-	// EntityManager.Destroy()
+	s.EntityManager.Destroy()
 }
-func (s *BaseScene) InitBaseScene() {
+func (s *BaseScene) initBaseScene() {
 	s.done = false
 	s.Loaded = true
+	s.EntityManager = newEntityManager()
 }
 
-func (s *BaseScene) UpdateVirtualResolution(virtualWidth float32, virtualHeight float32) {
+// updates virtual resolution variables and the entity manager
+func (s *BaseScene) UpdateBaseScene(virtualWidth float32, virtualHeight float32) {
 	s.VirtualWidth, s.VirtualHeight = virtualWidth, virtualHeight
+	s.EntityManager.Update()
 }
 
 // draws texture according to virtual Resolution
@@ -53,12 +55,22 @@ func (s *BaseScene) GoToNextScene() {
 	s.done = true
 }
 
-func (s *BaseScene) IsDone() bool {
+func (s *BaseScene) isDone() bool {
 	return s.done
 }
 
-// receives memory pool and initializes entity manager with it
-func (s *BaseScene) ReceiveMemoryPool(memoryPool *memoryPool) {
-	s.memoryPool = memoryPool
-	s.EntityManager = newEntityManager(s.memoryPool)
+func (s BaseScene) isLoaded() bool {
+	return s.Loaded
+}
+
+// helper method
+func (s *BaseScene) ForEachEntity(fn func(*Entity)) {
+	entities := s.EntityManager.GetEntities()
+	for e := entities.Front(); e != nil; e = e.Next() {
+		entity, ok := e.Value.(*Entity)
+		if !ok {
+			continue
+		}
+		fn(entity)
+	}
 }

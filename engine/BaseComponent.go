@@ -1,9 +1,9 @@
 package engine
 
-type BaseComponent struct {
-	exists bool
+// Component interface with an ID method instead of Mask.
+type Component interface {
+	ID() int
 }
 
-func (c BaseComponent) Exists() bool {
-	return c.exists
+type BaseComponent struct {
 }

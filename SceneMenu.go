@@ -8,25 +8,21 @@ import (
 
 type SceneMenu struct {
 	engine.BaseScene
-	background rl.Texture2D
 }
 
 func (s *SceneMenu) Init() {
-	// s.InitBaseScene()
-	s.background = rl.LoadTexture("assets/sprites/apple.png")
 
 }
 func (s *SceneMenu) Render() {
-	s.DrawTexture(s.background, rl.NewRectangle(0, 0, 100, 100), rl.White)
+	rl.DrawText("This is the Menu scene! or.. Is it? 🤨", 300, 200, 30, rl.Yellow)
 }
 func (s *SceneMenu) Update(virtualWidth float32, virtualHeight float32) {
-	s.UpdateVirtualResolution(virtualWidth, virtualHeight)
+	s.UpdateBaseScene(virtualWidth, virtualHeight)
 	if rl.IsKeyPressed(rl.KeyBackspace) {
 		s.GoToNextScene()
 	}
 }
 func (s *SceneMenu) Unload() {
-	rl.UnloadTexture(s.background)
 }
 
 func (s SceneMenu) IsLoaded() bool {
