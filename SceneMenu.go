@@ -14,7 +14,8 @@ func (s *SceneMenu) Init() {
 
 }
 func (s *SceneMenu) Render() {
-	rl.DrawText("This is the Menu scene! or.. Is it? 🤨", 300, 200, 30, rl.Yellow)
+	rl.DrawText("This is the Menu scene! or.. Is it?, \npress backsapce to go to the main scene ", 300, 200, 30, rl.Yellow)
+
 }
 func (s *SceneMenu) Update(virtualWidth float32, virtualHeight float32) {
 	s.UpdateBaseScene(virtualWidth, virtualHeight)

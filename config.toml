@@ -8,3 +8,4 @@ defaultScene="main"
 virtualResolution=[1280,720]
 debug=true
 estimateMaxEntities=100
+windowTitle="GO-bar Engine example"

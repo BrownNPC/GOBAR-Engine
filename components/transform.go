@@ -10,9 +10,9 @@ const TransformComponentId = 1
 
 // transform component
 type Transform struct {
+	engine.Component
 	Position cp.Vector
 	Angle    float64
-	engine.BaseComponent
 }
 
 func (c Transform) ID() int {

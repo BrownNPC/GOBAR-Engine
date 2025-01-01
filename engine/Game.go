@@ -104,7 +104,7 @@ func (g Game) GetScaleAndOffset() (scale float32, offsetX float32, offsetY float
 // It also adds some debug information to the screen.
 func (g Game) Run() {
 	rl.SetConfigFlags(rl.FlagWindowResizable)
-	rl.InitWindow(g.conf.Resolution[0], g.conf.Resolution[1], "Suika Game")
+	rl.InitWindow(g.conf.Resolution[0], g.conf.Resolution[1], g.conf.WindowTitle)
 	rl.SetTargetFPS(g.conf.FPS)
 	defer rl.CloseWindow()
 

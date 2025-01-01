@@ -5,7 +5,7 @@ import "game/engine"
 const HealthComponentID = 0
 
 type Health struct {
-	engine.BaseComponent
+	engine.Component
 	HP int
 }
 

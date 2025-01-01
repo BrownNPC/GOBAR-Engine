@@ -4,7 +4,6 @@ go 1.22.9
 
 require (
 	github.com/BurntSushi/toml v1.4.0
-	github.com/gen2brain/raylib-go/raygui v0.0.0-20241117153000-01864c04b849
 	github.com/gen2brain/raylib-go/raylib v0.0.0-20241117153000-01864c04b849
 	github.com/jakecoffman/cp v1.2.1
 )

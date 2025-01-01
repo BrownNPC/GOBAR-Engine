@@ -18,6 +18,7 @@ type Internal struct {
 	DefaultScene      string    `toml:"defaultScene"`
 	VirtualResolution []float32 `toml:"virtualResolution"`
 	Debug             bool      `toml:"debug"`
+	WindowTitle       string    `toml:"windowTitle"`
 }
 
 type Config struct {
